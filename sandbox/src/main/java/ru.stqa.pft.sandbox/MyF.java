@@ -4,28 +4,22 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 
 public class MyF {
     public static void main(String[] args) {
-        hello("world");
 
-        double len = 5;
-        System.out.println("Площадь квадрата со стороной " + len + "=" + area(len));
+        Point point1 = new Point(-5, 10);
+        Point point2 = new Point(15, -16);
 
-        double a = 6;
-        double b = 7;
-        System.out.println("Площадь прямоугольника со сторонами " + a + "и" + b + "=" + area(a,b));
-
+        System.out.println(point1.getDistance(point2));
     }
+
 
 
     public static void hello(String somebody) {
         System.out.println("hello " + somebody + "!");
     }
 
-    public static double area(double l) {
-        return l * l;
+    public static double area(Square s) {
+        return s.l * s.l;
     }
 
-    public static double area(double a, double b){
 
-        return a*b;
     }
-}
