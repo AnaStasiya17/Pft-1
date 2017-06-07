@@ -11,8 +11,6 @@ public class MyF {
         System.out.println(point1.getDistance(point2));
     }
 
-
-
     public static void hello(String somebody) {
         System.out.println("hello " + somebody + "!");
     }
