@@ -13,7 +13,7 @@ public class CreateContactTest extends TestBase {
         app.getNavigationHelper().goToContactPage();
         app.getAppHelper().enterFieldGroupCreate(new GroupDataContact("name", "secondname", "lastname", "address"));
         app.getAppHelper().submitContact();
-        app.getAppHelper().returnPageContact();
+        app.getAppHelper().returnHomePage();
     }
 
 }

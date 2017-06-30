@@ -23,12 +23,12 @@ public class HelperBase {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
     }
-
     public void typeContact(By locatorContact, String text) {
-        click(locatorContact);
-        wd.findElement(locatorContact).clear();
-        wd.findElement(locatorContact).sendKeys(text);
-    }
+                click(locatorContact);
+                wd.findElement(locatorContact).clear();
+                wd.findElement(locatorContact).sendKeys(text);
+            }
+
 
     public  boolean isAlertPresent() {
         try {
