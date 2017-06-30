@@ -8,6 +8,7 @@ import ru.sqta.pft.addressbook.model.GroupData;
 public class  CreateGroupTest extends TestBase {
 
     @Test
+
     public void testCreateGroup() {
         app.getNavigationHelper().goToPageGroup();
         app.getAppHelper().initGroupCreate();

@@ -1,19 +1,19 @@
 package ru.sqta.pft.addressbook.tests;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.sqta.pft.addressbook.model.GroupDataContact;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.*;
-import ru.sqta.pft.addressbook.model.GroupDataContact;
-
-public class CreateContact {
+public class CreateContact extends TestBase {
     FirefoxDriver wd;
-    
+
     @BeforeMethod
     public void setUp() throws Exception {
         wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
@@ -21,15 +21,20 @@ public class CreateContact {
         wd.get("http://localhost/addressbook/");
         login("admin", "secret");
     }
-    
+
     @Test
     public void createNewContact() {
+        goToContactPage();
         enterFieldContact(new GroupDataContact("First", "Second", "Last", "Moskow"));
         submitContact();
-        goToPageContact();
+        returnPageContact();
     }
 
-    private void goToPageContact() {
+    private void goToContactPage() {
+        wd.findElement(By.linkText("add new")).click();
+    }
+
+    private void returnPageContact() {
         wd.findElement(By.linkText("home page")).click();
     }
 
@@ -38,8 +43,7 @@ public class CreateContact {
     }
 
     private void enterFieldContact(GroupDataContact groupDataContact) {
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-        wd.findElement(By.linkText("add new")).click();
+
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(groupDataContact.getName());
@@ -62,13 +66,14 @@ public class CreateContact {
         wd.findElement(By.name("pass")).click();
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys(password);
+        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
     @AfterMethod
     public void tearDown() {
         wd.quit();
     }
-    
+
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {
             wd.switchTo().alert();
