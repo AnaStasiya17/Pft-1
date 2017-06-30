@@ -1,4 +1,4 @@
-package ru.sqta.pft.addressbook;
+package ru.sqta.pft.addressbook.tests;
 
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;
@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
+import ru.sqta.pft.addressbook.model.GroupDataContact;
 
 public class CreateContact {
     FirefoxDriver wd;

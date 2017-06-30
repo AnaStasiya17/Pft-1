@@ -1,4 +1,4 @@
-package ru.sqta.pft.addressbook;
+package ru.sqta.pft.addressbook.model;
 
 public class GroupDataContact {
     private final String name;
