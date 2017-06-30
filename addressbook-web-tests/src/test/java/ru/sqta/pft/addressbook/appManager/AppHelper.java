@@ -4,6 +4,7 @@ import com.sun.javafx.binding.ExpressionHelperBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sqta.pft.addressbook.model.GroupData;
+import ru.sqta.pft.addressbook.model.GroupDataContact;
 
 
 /**
@@ -14,9 +15,12 @@ public class AppHelper extends HelperBase{
         super(wd);
 
     }
-
     public void returnToGroupPage() {
         click(By.linkText("group page"));
+    }
+
+    public void returnPageContact() {
+        click(By.linkText("home page"));
     }
 
     public void submitGroupCreate() {
@@ -29,7 +33,6 @@ public class AppHelper extends HelperBase{
         type(By.name("group_footer"), groupData.getFooter());
     }
 
-
     public void initGroupCreate() {
         click(By.name("new"));
     }
@@ -40,5 +43,17 @@ public class AppHelper extends HelperBase{
 
     public void deleteGroup() {
         click(By.name("delete"));
+    }
+
+    public void submitContact() {
+        click(By.name("submit"));
+    }
+
+
+    public void enterFieldGroupCreate(GroupDataContact groupDataContact) {
+        typeContact(By.name("firstname"), groupDataContact.getName());
+        typeContact(By.name("middlename"), groupDataContact.getSecondName());
+        typeContact(By.name("lastname"), groupDataContact.getLastName());
+        typeContact(By.name("address"), groupDataContact.getAddress());
     }
 }

@@ -2,6 +2,7 @@ package ru.sqta.pft.addressbook.appManager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.sqta.pft.addressbook.model.GroupDataContact;
 
 /**
  * Created by Анастасия Цыбулько on 30.06.2017.
@@ -16,4 +17,12 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("groups"));
 
     }
+
+
+    public void goToContactPage() {
+        click(By.linkText("add new"));
+
+    }
+
+
 }
