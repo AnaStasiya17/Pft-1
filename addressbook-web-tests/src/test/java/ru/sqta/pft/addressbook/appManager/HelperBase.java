@@ -3,6 +3,7 @@ package ru.sqta.pft.addressbook.appManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.NoSuchElementException;
 
 /**
  * Created by Анастасия Цыбулько on 30.06.2017.
@@ -20,17 +21,24 @@ public class HelperBase {
 
     public void type(By locator, String text) {
         click(locator);
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-    }
+                      wd.findElement(locator).clear();
+                       wd.findElement(locator).sendKeys(text);
+        }
+
+
     public void typeContact(By locatorContact, String text) {
-                click(locatorContact);
+        if (text != null) {
+            String existingText = wd.findElement(locatorContact).getAttribute("value");
+            if (!text.equals(existingText)) {
+
                 wd.findElement(locatorContact).clear();
                 wd.findElement(locatorContact).sendKeys(text);
             }
+        }
+    }
 
 
-    public  boolean isAlertPresent() {
+    public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
             return true;
@@ -38,6 +46,15 @@ public class HelperBase {
             return false;
         }
     }
+
+    protected boolean isElementPresent(By locator) {
+            try {
+                 wd.findElement(locator);
+                  return  true;
+                } catch (NoSuchElementException ex) {
+                  return false;
+                }
+          }
 
 
 }
