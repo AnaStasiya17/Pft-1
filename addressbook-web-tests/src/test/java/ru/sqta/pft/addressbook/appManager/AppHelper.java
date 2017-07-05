@@ -100,7 +100,7 @@ public class AppHelper extends HelperBase {
     }
 
     public void enterContact() {
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[3]/td[1]/input"));
+        click(By.name("selected[]"));
     }
 
     public void deleteContact() {
