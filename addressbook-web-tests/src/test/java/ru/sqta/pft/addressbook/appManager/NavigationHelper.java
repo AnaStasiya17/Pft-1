@@ -22,7 +22,7 @@ public class NavigationHelper extends HelperBase {
     }
 
 
-    public void goToContactPage() {
+    public void goToAddNewContactPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("EDIT_ADD_ENTRY")) {
             return;
