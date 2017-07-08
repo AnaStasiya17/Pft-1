@@ -1,101 +1,97 @@
 package ru.sqta.pft.addressbook.appManager;
+
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
-import ru.sqta.pft.addressbook.model.GroupData;
-import ru.sqta.pft.addressbook.model.GroupDataContact;
+import ru.sqta.pft.addressbook.model.ContactData;
+import ru.sqta.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
-/**
- * Created by Анастасия Цыбулько on 08.07.2017.
- */
+
 public class ContactHelper extends HelperBase {
+
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void deleteSelectedContacts() {
+        click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+        clickOnAlert();
     }
 
-    public void submitContact() {
-
-        click(By.xpath("//div[@id='content']/form/input[21]"));
-        //click(By.name("submit"));
+    public void returnToContactPage() {
+        wd.findElement(By.linkText("home")).click();
     }
 
-    public void enterFieldContactCreate(GroupDataContact groupDataContact, boolean creationContact) {
-        typeContact(By.name("firstname"), groupDataContact.getName());
-        typeContact(By.name("middlename"), groupDataContact.getSecondName());
-        typeContact(By.name("lastname"), groupDataContact.getLastName());
-        typeContact(By.name("address"), groupDataContact.getAddress());
-        if (creationContact) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(groupDataContact.getGroupContact());
+    public void submitContactCreation() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    public void submitContactModification() {
+        wd.findElement(By.xpath("//div[@id='content']/form[1]/input[22]")).click();
+    }
+
+    public void fillContactForm(ContactData contactData, boolean creation) {
+        type(By.name("firstname"), contactData.getTestFirstName());
+        type(By.name("lastname"), contactData.getTestLastName());
+        type(By.name("address"), contactData.getTestAddress());
+        type(By.name("mobile"), contactData.getTestMobile());
+        type(By.name("home"), contactData.getTestHome());
+        type(By.name("work"), contactData.getTestWork());
+        type(By.name("email"), contactData.getTestEmail());
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
 
-    public void createContact(GroupDataContact groupDataContact, boolean creation) {
-        enterFieldContactCreate(groupDataContact, creation);
-        submitContact();
-        returnHomePage();
+    public void initContactCreation() {
+        wd.findElement(By.linkText("add new")).click();
     }
 
-    public boolean isThereAContact() {
-        return isElementPresent(By.name("selected[]"));
+    public void initContactModification() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
-    public void editContact(int index) {
-        wd.findElements(By.xpath(".//td[8]")).get(index).click();
+    public void createContact(ContactData contactData, Boolean creation) {
+        initContactCreation();
+        fillContactForm(contactData, creation);
+        submitContactCreation();
+        returnToContactPage();
     }
 
-    public void enterContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void modify(ContactData contact) {
+        selectContactById(contact.getId());
+        initContactModification();
+        fillContactForm(contact, false);
+        submitContactModification();
+        returnToContactPage();
     }
 
-    public void deleteContact() {
-        click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
-        closeDialog();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    private void closeDialog() {
-        wd.switchTo().alert().accept();
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteSelectedContacts();
+        returnToContactPage();
     }
 
-    public int getContactCount() {
-        return wd.findElements(By.name("selected[]")).size();
-    }
-
-    public List<GroupDataContact> getContactList() {
-        List<GroupDataContact> contacts = new ArrayList<GroupDataContact>();
-        List<WebElement> elements = wd.findElements(By.xpath("//tr[contains(@name,\"entry\")]"));
+    public Contacts all() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr"));
+        elements.remove(0);
         for (WebElement element : elements) {
-            String name = getFirstName(element);
-            String lastName = getLastName(element);
+            String lastName = element.findElements(By.tagName("td")).get(1).getText();
+            String firstName = element.findElements(By.tagName("td")).get(2).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            GroupDataContact contact = new GroupDataContact(id, name, null,
-                    lastName, null, null);
+            ContactData contact = new ContactData().withId(id).withTestFirstName(firstName).withTestLastName(lastName);
             contacts.add(contact);
         }
         return contacts;
     }
-
-    private String getLastName(WebElement element) {
-        return element.findElement(By.xpath("./td[2]")).getText();
-    }
-
-    private String getFirstName(WebElement element) {
-        return element.findElement(By.xpath("./td[3]")).getText();
-    }
-    public void returnHomePage() {
-        click(By.linkText("home page"));
-    }
-    public void submitMofification() {
-        click(By.name("update"));
-    }
-
 }
