@@ -19,6 +19,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private AppHelper appHelper;
     private String browser;
+    private ContactHelper contactHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -37,6 +38,7 @@ public class ApplicationManager {
         wd.get("http://localhost/addressbook/");
         appHelper = new AppHelper(wd);
         navigationHelper = new NavigationHelper(wd);
+        contactHelper = new ContactHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
     }
@@ -45,11 +47,12 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public AppHelper getAppHelper() {
+    public AppHelper group() {
         return appHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goTo() {
         return navigationHelper;
     }
+    public ContactHelper contact(){return contactHelper;}
 }

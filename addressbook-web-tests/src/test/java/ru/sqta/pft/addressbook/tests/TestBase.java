@@ -1,11 +1,8 @@
 package ru.sqta.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 import ru.sqta.pft.addressbook.appManager.ApplicationManager;
 import org.openqa.selenium.remote.BrowserType;
 
@@ -13,7 +10,8 @@ import org.openqa.selenium.remote.BrowserType;
  * Created by Анастасия Цыбулько on 30.06.2017.
  */
 public class TestBase {
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+    protected  static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+
 
     public static boolean isAlertPresent(WebDriver wd) {
         try {
@@ -24,17 +22,13 @@ public class TestBase {
         }
     }
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() throws Exception {
         app.init();
     }
 
-
-
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         app.stop();
     }
-
-
 }

@@ -12,26 +12,26 @@ import java.util.List;
  */
 public class ContactModificationTest extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactModification() {
 
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
 
-        if (!app.getAppHelper().isThereAContact()) {
-            app.getNavigationHelper().goToAddNewContactPage();
-            app.getAppHelper().createContact(new GroupDataContact(
+        if (!app.contact().isThereAContact()) {
+            app.goTo().goToAddNewContactPage();
+            app.contact().createContact(new GroupDataContact(
                     5, " bbb", "ccc",
                     "ddd", "eee", "test1"), true);
         }
-        List<GroupDataContact> before = app.getAppHelper().getContactList();
-        app.getAppHelper().selectContact(before.size() - 1);
-        app.getAppHelper().initContactModification(before.size() - 1);
+        List<GroupDataContact> before = app.contact().getContactList();
+        app.contact().selectContact(before.size() - 1);
+        app.group().initContactModification(before.size() - 1);
         GroupDataContact contact = new GroupDataContact(6, "First",
                 "sec", "Last", null, "test1");
-        app.getAppHelper().enterFieldContactCreate(contact, false);
-        app.getAppHelper().submitMofification();
-        app.getAppHelper().returnHomePage();
-        List<GroupDataContact> after = app.getAppHelper().getContactList();
+        app.contact().enterFieldContactCreate(contact, false);
+        app.contact().submitMofification();
+        app.contact().returnHomePage();
+        List<GroupDataContact> after = app.contact().getContactList();
 
         Assert.assertEquals(after.size(), before.size());
 

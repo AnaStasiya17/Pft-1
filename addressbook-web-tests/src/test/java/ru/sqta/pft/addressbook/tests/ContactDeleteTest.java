@@ -10,20 +10,20 @@ import java.util.List;
  * Created by Анастасия Цыбулько on 30.06.2017.
  */
 public class ContactDeleteTest extends TestBase {
-    @Test
+    @Test(enabled = false)
     public void testModificationContact() {
-        app.getNavigationHelper().goToHomePage();
-         if(!app.getAppHelper().isThereAContact()) {
-             app.getNavigationHelper().goToAddNewContactPage();
-              app.getAppHelper().createContact( new GroupDataContact(
+        app.goTo().goToHomePage();
+         if(!app.contact().isThereAContact()) {
+             app.goTo().goToAddNewContactPage();
+              app.contact().createContact( new GroupDataContact(
                       5, "bbb", "ccc",
                      "ddd", "eee", "LLC"), true);
             }
-        List<GroupDataContact> before = app.getAppHelper().getContactList();
-        app.getAppHelper().selectContact(before.size() - 1);
-        app.getAppHelper().deleteContact();
-        app.getNavigationHelper().goToHomePage();
-        List<GroupDataContact> after = app.getAppHelper().getContactList();
+        List<GroupDataContact> before = app.contact().getContactList();
+        app.contact().selectContact(before.size() - 1);
+        app.contact().deleteContact();
+        app.goTo().goToHomePage();
+        List<GroupDataContact> after = app.contact().getContactList();
         Assert.assertEquals(after.size(), before.size() - 1);
         before.remove(before.size() - 1);
         Assert.assertEquals(before, after);

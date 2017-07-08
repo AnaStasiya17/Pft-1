@@ -1,29 +1,30 @@
 package ru.sqta.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sqta.pft.addressbook.model.GroupData;
+import java.util.Set;
 
 import java.util.List;
 
 public class GroupDeleteTest extends TestBase {
-
+    @BeforeMethod
+  public void ensurePreconditions() {
+     app.goTo().groupPage();
+     if (app.group().all().size() == 0) {
+     app.group().create(new GroupData().withName("test1"));
+    }
+   }
 
     @Test
     public void testGroupDelete() {
-        app.getNavigationHelper().goToPageGroup();
-
-        if (!app.getAppHelper().isThereAGroup()) {
-            app.getAppHelper().createGroup(new GroupData("test1",
-                    null, null));
-        }
-        List<GroupData> before = app.getAppHelper().getGroupList();
-        app.getAppHelper().selectGroup(before.size() - 1);
-        app.getAppHelper().deleteGroup();
-        app.getAppHelper().returnToGroupPage();
-        List<GroupData> after = app.getAppHelper().getGroupList();
+        Set<GroupData> before = app.group().all();
+            GroupData deletedGroup = before.iterator().next();
+           app.group().delete(deletedGroup);
+           Set<GroupData> after = app.group().all();
         Assert.assertEquals(after.size(), before.size() - 1);
-        before.remove(before.size() - 1);
+          before.remove(deletedGroup);
         Assert.assertEquals(before, after);
     }
 }
