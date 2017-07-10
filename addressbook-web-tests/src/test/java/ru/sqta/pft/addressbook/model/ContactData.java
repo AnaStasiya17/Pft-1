@@ -4,11 +4,65 @@ public class ContactData {
     private String testFirstName;
     private String testLastName;
     private String testAddress;
+    private String testAddress2;
     private String testHome;
     private String testMobile;
     private String testWork;
     private String testEmail;
+
+    public String getTestAddress2() {
+        return testAddress2;
+    }
+
+    public ContactData withTestAddress2(String testAddress2) {
+        this.testAddress2 = testAddress2;
+        return this;
+    }
+
+    public String getTestEmail2() {
+        return testEmail2;
+    }
+
+    public ContactData withTestEmail2(String testEmail2) {
+        this.testEmail2 = testEmail2;
+        return this;
+    }
+
+    private String testEmail2;
     private String group;
+    private String allPhones;
+    private String allAddress;
+
+    public ContactData withAllAddress(String allAddress) {
+        this.allAddress = allAddress;
+        return this;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
+    private String allEmails;
+
+
+    public String getAllAddress() {
+        return allAddress;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
     private int id = Integer.MIN_VALUE;
 
     public ContactData withTestFirstName(String testFirstName) {
@@ -24,6 +78,27 @@ public class ContactData {
     public ContactData withTestAddress(String testAddress) {
         this.testAddress = testAddress;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (id != that.id) return false;
+        if (testFirstName != null ? !testFirstName.equals(that.testFirstName) : that.testFirstName != null)
+            return false;
+        return testLastName != null ? testLastName.equals(that.testLastName) : that.testLastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = testFirstName != null ? testFirstName.hashCode() : 0;
+        result = 31 * result + (testLastName != null ? testLastName.hashCode() : 0);
+        result = 31 * result + id;
+        return result;
     }
 
     public ContactData withTestHome(String testHome) {
@@ -100,24 +175,4 @@ public class ContactData {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (testFirstName != null ? !testFirstName.equals(that.testFirstName) : that.testFirstName != null)
-            return false;
-        return testLastName != null ? testLastName.equals(that.testLastName) : that.testLastName == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = testFirstName != null ? testFirstName.hashCode() : 0;
-        result = 31 * result + (testLastName != null ? testLastName.hashCode() : 0);
-        result = 31 * result + id;
-        return result;
-    }
 }
