@@ -42,6 +42,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), contactData.getTestHome());
         type(By.name("work"), contactData.getTestWork());
         type(By.name("email"), contactData.getTestEmail());
+        attach(By.name("photo"), contactData.getPhoto());
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
@@ -64,7 +65,7 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
     }
 
-    public void createContact(ContactData contactData, Boolean creation) {
+    public void create(ContactData contactData, Boolean creation) {
         initContactCreation();
         fillContactForm(contactData, creation);
         submitContactCreation();

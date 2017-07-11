@@ -1,11 +1,22 @@
 package ru.sqta.pft.addressbook.model;
 
-public class GroupData {
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-    private String name;
-    private String header;
-    private String footer;
+@XStreamAlias("group")
+public class GroupData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+
+    @Expose
+    private String name;
+
+    @Expose
+    private String header;
+
+    @Expose
+    private String footer;
 
     @Override
     public boolean equals(Object o) {

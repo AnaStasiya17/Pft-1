@@ -1,6 +1,5 @@
 apply plugin: 'java'
 
-
 repositories {
     mavenCentral()
 }
@@ -8,5 +7,8 @@ dependencies {
 
     compile 'org.testng:testng:6.11'
     compile 'org.seleniumhq.selenium:selenium-java:3.4.0'
+    compile 'com.beust:jcommander:1.72'
+    compile 'com.thoughtworks.xstream:xstream:1.4.10'
+    compile 'com.google.code.gson:gson:2.8.1'
 
 }

@@ -1,14 +1,50 @@
 package ru.sqta.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.io.File;
+
+@XStreamAlias("contact")
 public class ContactData {
+    @XStreamOmitField
+    private int id = Integer.MAX_VALUE;
+
+    @Expose
     private String testFirstName;
+
+    @Expose
     private String testLastName;
+
+    @Expose
     private String testAddress;
+
+    @Expose
     private String testAddress2;
+
+    @Expose
     private String testHome;
+
+    @Expose
     private String testMobile;
+
+    @Expose
     private String testWork;
+
+    @Expose
     private String testEmail;
+
+    private File photo;
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
 
     public String getTestAddress2() {
         return testAddress2;
@@ -29,6 +65,8 @@ public class ContactData {
     }
 
     private String testEmail2;
+
+    @Expose
     private String group;
     private String allPhones;
     private String allAddress;
@@ -63,7 +101,6 @@ public class ContactData {
         return this;
     }
 
-    private int id = Integer.MIN_VALUE;
 
     public ContactData withTestFirstName(String testFirstName) {
         this.testFirstName = testFirstName;
