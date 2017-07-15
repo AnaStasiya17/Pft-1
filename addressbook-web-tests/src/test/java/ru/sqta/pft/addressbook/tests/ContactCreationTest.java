@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.sqta.pft.addressbook.model.ContactData;
 import ru.sqta.pft.addressbook.model.Contacts;
+import ru.sqta.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -56,6 +57,12 @@ public class ContactCreationTest extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
+        Groups groups = app.db().groups();
+        File photo = new File("src/test/resources/stru.png");
+        ContactData newContact = new ContactData().withTestFirstName("test_name").withTestLastName("test_surname")
+                .inGroup(groups.iterator().next());
+
+
         app.goTo().contactPage();
         Contacts before = app.db().contacts();
         app.contact().create(contact, true);
@@ -71,12 +78,13 @@ public class ContactCreationTest extends TestBase {
         Contacts before = app.db().contacts();
         ContactData contact = new ContactData().withTestFirstName("testFirstName''~!@#@@#@!!@#$%^&*()_")
                 .withTestLastName("testLastName").withTestAddress("testAddress").withTestHome("testHome")
-                .withTestMobile("+ 7 28323").withTestWork("9(3213)3133").withTestEmail("testEmail").withGroup("[none]");
+                .withTestMobile("+ 7 28323").withTestWork("9(3213)3133").withTestEmail("testEmail");
         app.contact().create(contact, true);
         Assert.assertEquals(app.contact().count(), before.size());
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        verifyContactListInUI();
     }
 
 }
