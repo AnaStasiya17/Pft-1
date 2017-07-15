@@ -55,14 +55,12 @@ public class ContactCreationTest extends TestBase {
         }
     }
 
-    @Test(dataProvider = "validContactsFromJson")
+    @Test
     public void testContactCreation(ContactData contact) {
         Groups groups = app.db().groups();
-        File photo = new File("src/test/resources/stru.png");
+        File photo = new File("src/test/resources/duck.png");
         ContactData newContact = new ContactData().withTestFirstName("test_name").withTestLastName("test_surname")
                 .inGroup(groups.iterator().next());
-
-
         app.goTo().contactPage();
         Contacts before = app.db().contacts();
         app.contact().create(contact, true);
