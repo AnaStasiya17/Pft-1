@@ -63,7 +63,7 @@ public class ContactCreationTest extends TestBase {
                 .inGroup(groups.iterator().next());
         app.goTo().contactPage();
         Contacts before = app.db().contacts();
-        app.contact().create(contact, true);
+        app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(
@@ -77,7 +77,7 @@ public class ContactCreationTest extends TestBase {
         ContactData contact = new ContactData().withTestFirstName("testFirstName''~!@#@@#@!!@#$%^&*()_")
                 .withTestLastName("testLastName").withTestAddress("testAddress").withTestHome("testHome")
                 .withTestMobile("+ 7 28323").withTestWork("9(3213)3133").withTestEmail("testEmail");
-        app.contact().create(contact, true);
+        app.contact().create(contact);
         Assert.assertEquals(app.contact().count(), before.size());
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(

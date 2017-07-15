@@ -1,12 +1,12 @@
 package ru.sqta.pft.addressbook.appManager;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.sqta.pft.addressbook.model.ContactData;
 import ru.sqta.pft.addressbook.model.Contacts;
+import ru.sqta.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -69,9 +69,9 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
     }
 
-    public void create(ContactData contactData, Boolean creation) {
+    public void create(ContactData contactData) {
         initContactCreation();
-        fillContactForm(contactData, creation);
+        fillContactForm(contactData, true);
         submitContactCreation();
         contactCache = null;
         returnToContactPage();
@@ -138,4 +138,28 @@ public class ContactHelper extends HelperBase {
                 .withTestHome(home).withTestMobile(mobile).withTestWork(work)
                 .withAllAddress(address).withTestEmail(email).withTestEmail2(email2);
     }
+
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroupInList(group.getName());
+        initAddToGroup();
+    }
+
+    private void selectGroupInList(String groupName) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName);
+    }
+
+    private void initAddToGroup() {
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void deleteContactFromGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        initDeletingFromGrop();
+    }
+
+    private void initDeletingFromGrop() {
+        wd.findElement(By.name("remove")).click();
+    }
+
 }

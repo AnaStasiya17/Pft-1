@@ -19,7 +19,7 @@ public class ContactDeleteTest extends TestBase {
         if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData().withTestFirstName("testFirstName")
                     .withTestLastName("testLastName").withTestAddress("testAddress").withTestHome("testHome").withTestWork("testWork")
-                    .withTestMobile("testMobile").withTestEmail("testEmail"), true);
+                    .withTestMobile("testMobile").withTestEmail("testEmail"));
         }
     }
 

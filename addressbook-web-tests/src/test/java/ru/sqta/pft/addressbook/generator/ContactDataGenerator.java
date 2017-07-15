@@ -81,7 +81,7 @@ public class ContactDataGenerator {
                     contact.getTestAddress(),
                     contact.getTestEmail(),
                     contact.getTestMobile(),
-                    contact.getGroup()));
+                    contact.getGroups()));
         }
         writer.close();
     }
@@ -94,9 +94,7 @@ public class ContactDataGenerator {
                     .withTestLastName(String.format("lastname%s", i))
                     .withTestAddress(String.format("address%s", i))
                     .withTestEmail(String.format("email@mail.com", i))
-                    .withTestMobile(String.format("12345 %s", i))
-                    .withGroup(String.format("test1", i))
-                    .withGroup("[none]"));
+                    .withTestMobile(String.format("12345 %s", i)));
         }
         return contacts;
     }
