@@ -47,7 +47,7 @@ public class ContactDataGenerator {
             saveAsCsv(contacts, new File(file));
         } else if (format.equals("xml")) {
             saveAsXml(contacts, new File(file));
-        }else  if (format.equals("json")) {
+        } else if (format.equals("json")) {
             saveAsGson(contacts, new File(file));
         } else {
             System.out.println("Unrecognized format " + format);
@@ -67,7 +67,7 @@ public class ContactDataGenerator {
     private void saveAsGson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        try (Writer writer = new FileWriter(file)){
+        try (Writer writer = new FileWriter(file)) {
             writer.write(json);
         }
     }

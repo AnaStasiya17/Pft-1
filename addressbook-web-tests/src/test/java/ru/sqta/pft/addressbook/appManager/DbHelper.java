@@ -21,7 +21,7 @@ public class DbHelper {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();
-        sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+        sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
     public Groups groups() {
@@ -37,7 +37,7 @@ public class DbHelper {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> result = session.createQuery("from ContactData where deprecated = '000-00-00'").list();
-        for (ContactData contact : result ) {
+        for (ContactData contact : result) {
             System.out.println(contact);
         }
         session.getTransaction().commit();

@@ -7,11 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.sqta.pft.addressbook.model.ContactData;
 import ru.sqta.pft.addressbook.model.Contacts;
-import ru.sqta.pft.addressbook.model.Groups;
 
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
+
+    private Contacts contactCache = null;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -92,9 +93,6 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
         returnToContactPage();
     }
-
-    private Contacts contactCache = null;
-
 
     public Contacts all() {
         if (contactCache != null) {

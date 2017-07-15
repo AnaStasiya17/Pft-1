@@ -50,6 +50,16 @@ public class ContactData {
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+    private String testEmail2;
+    @Expose
+    @Transient
+
+    private String group;
+    @Transient
+    private String allPhones;
+    @Transient
+    private String allAddress;
+    private String allEmails;
 
     public File getPhoto() {
         return new File(photo);
@@ -78,17 +88,6 @@ public class ContactData {
         return this;
     }
 
-    private String testEmail2;
-
-    @Expose
-    @Transient
-
-    private String group;
-    @Transient
-    private String allPhones;
-    @Transient
-    private String allAddress;
-
     public ContactData withAllAddress(String allAddress) {
         this.allAddress = allAddress;
         return this;
@@ -98,9 +97,6 @@ public class ContactData {
         this.allEmails = allEmails;
         return this;
     }
-
-    private String allEmails;
-
 
     public String getAllAddress() {
         return allAddress;

@@ -1,6 +1,5 @@
 package ru.sqta.pft.addressbook.appManager;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,10 +7,13 @@ import ru.sqta.pft.addressbook.model.GroupData;
 import ru.sqta.pft.addressbook.model.Groups;
 
 import java.util.List;
+
 /**
  * Created by Анастасия Цыбулько on 30.06.2017.
  */
 public class GroupHelper extends HelperBase {
+
+    private Groups groupCache = null;
 
     public GroupHelper(WebDriver wd) {
         super(wd);
@@ -74,8 +76,6 @@ public class GroupHelper extends HelperBase {
         groupCache = null;
         returnToGroupPage();
     }
-
-    private Groups groupCache = null;
 
     public Groups all() {
         if (groupCache != null) {
