@@ -15,33 +15,34 @@ import static org.testng.Assert.assertTrue;
 
 public class ResetAndChangePasswordTests extends TestBase {
 
-  @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
-  }
+    @BeforeMethod
+    public void startMailServer() {
+        app.mail().start();
+    }
 
-  @Test
-  public void testResetAndChangePassword() throws IOException, MessagingException {
-    Users users = app.db().usersWithoutAdmin();
+    @Test
+    public void testResetAndChangePassword() throws IOException, MessagingException {
+        Users users = app.db().usersWithoutAdmin();
 
-    UserData user = users.iterator().next();
-    String userName = user.getName();
-    String userEmail = user.getEmail();
-    String newPassword = "qwerty";
-    app.session().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
-    app.goTo().managePage();
-    app.goTo().usersManageTab();
-    app.user().selectById(user.getId());
-    app.user().initPasswordReset();
-    List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-    String confirmationLink = app.mail().findConfirmationLink(mailMessages, userEmail);
-    app.rgistration().finish(confirmationLink, newPassword);
-    assertTrue(app.newSession().login(userName, newPassword));
-  }
+        UserData user = users.iterator().next();
+        String userName = user.getName();
+        String userEmail = user.getEmail();
+        String newPassword = "qwerty";
 
-  @AfterMethod(alwaysRun = true)
-  public void stopMailServer() {
-    app.mail().stop();
-  }
+        app.session().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
+        app.goTo().managePage();
+        app.goTo().usersManageTab();
+        app.user().selectById(user.getId());
+        app.user().initPasswordReset();
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
+        String confirmationLink = app.mail().findConfirmationLink(mailMessages, userEmail);
+        app.rgistration().finish(confirmationLink, newPassword);
+        assertTrue(app.newSession().login(userName, newPassword));
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void stopMailServer() {
+        app.mail().stop();
+    }
 
 }
