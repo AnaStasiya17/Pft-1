@@ -1,5 +1,7 @@
 package ru.stqa.pft.mantis.tests;
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.Issue;
 import ru.stqa.pft.mantis.model.Project;
@@ -13,34 +15,34 @@ import static org.testng.Assert.assertEquals;
 
 public class SoapTests extends TestBase {
 
-    @Test
-    public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
-        Set<Project> projects = app.soap().getProjects();
+  @Test
+  public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
+    Set<Project> projects = app.soap().getProjects();
 
-        System.out.println(projects.size());
-        for (Project project : projects) {
-            System.out.println(project.getName());
-        }
+    System.out.println(projects.size());
+    for (Project project : projects) {
+      System.out.println(project.getName());
     }
+  }
 
-    @Test
-    public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
-        Set<Project> projects = app.soap().getProjects();
+  @Test
+  public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
+    Set<Project> projects = app.soap().getProjects();
 
-        Issue issue = new Issue().withSummary("Test issue")
-                .withDescription("Test issue description")
-                .withProject(projects.iterator().next());
+    Issue issue = new Issue().withSummary("Test issue")
+            .withDescription("Test issue description")
+            .withProject(projects.iterator().next());
 
-        Issue created = app.soap().addIssue(issue);
-        assertEquals(issue.getSummary(), created.getSummary());
-    }
+    Issue created = app.soap().addIssue(issue);
+    assertEquals(issue.getSummary(), created.getSummary());
+  }
 
-    @Test
-    public void testSkip() throws RemoteException, ServiceException, MalformedURLException {
-        int blockedIssueId = 3;
-        skipIfNotFixed(blockedIssueId);
-        System.out.println("Я выполнился!");
-    }
+  @Test
+  public void testSkip() throws RemoteException, ServiceException, MalformedURLException {
+    int blockedIssueId = 3; // Указан id конкретного, блокирующего данный тест, бага
+    skipIfNotFixed(blockedIssueId);
+    System.out.println("Я выполнился!");
+  }
 
 }
 
