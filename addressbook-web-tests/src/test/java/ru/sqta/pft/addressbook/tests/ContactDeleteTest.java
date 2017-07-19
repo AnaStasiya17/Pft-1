@@ -14,10 +14,11 @@ public class ContactDeleteTest extends TestBase {
             app.getNavigationHelper().goToContactPage();
             app.getAppHelper().createContact(new GroupDataContact(
                     "name", "secondname",
-                    "lastname", "address", "test1"), true);
+                    "lastname", "address", "test 1"), true);
         }
 
         app.getAppHelper().enterContact();
         app.getAppHelper().deleteContact();
+        app.getAppHelper().returnHomePage();
     }
 }
