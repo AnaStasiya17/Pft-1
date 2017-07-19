@@ -2,81 +2,26 @@
   {
     "testFirstName": "firstname0",
     "testLastName": "lastname0",
-    "testAddress": "address0",
-    "testMobile": "12345 0",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
+    "testMobile": "12345 0"
   },
   {
     "testFirstName": "firstname1",
     "testLastName": "lastname1",
-    "testAddress": "address1",
-    "testMobile": "12345 1",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
+    "testMobile": "12345 1"
   },
   {
     "testFirstName": "firstname2",
     "testLastName": "lastname2",
-    "testAddress": "address2",
-    "testMobile": "12345 2",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
+    "testMobile": "12345 2"
   },
   {
     "testFirstName": "firstname3",
     "testLastName": "lastname3",
-    "testAddress": "address3",
-    "testMobile": "12345 3",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
+    "testMobile": "12345 3"
   },
   {
     "testFirstName": "firstname4",
     "testLastName": "lastname4",
-    "testAddress": "address4",
-    "testMobile": "12345 4",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
-  },
-  {
-    "testFirstName": "firstname5",
-    "testLastName": "lastname5",
-    "testAddress": "address5",
-    "testMobile": "12345 5",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
-  },
-  {
-    "testFirstName": "firstname6",
-    "testLastName": "lastname6",
-    "testAddress": "address6",
-    "testMobile": "12345 6",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
-  },
-  {
-    "testFirstName": "firstname7",
-    "testLastName": "lastname7",
-    "testAddress": "address7",
-    "testMobile": "12345 7",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
-  },
-  {
-    "testFirstName": "firstname8",
-    "testLastName": "lastname8",
-    "testAddress": "address8",
-    "testMobile": "12345 8",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
-  },
-  {
-    "testFirstName": "firstname9",
-    "testLastName": "lastname9",
-    "testAddress": "address9",
-    "testMobile": "12345 9",
-    "testEmail": "email@mail.com",
-    "group": "[none]"
+    "testMobile": "12345 4"
   }
 ]

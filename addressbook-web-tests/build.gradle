@@ -4,7 +4,6 @@ repositories {
     mavenCentral()
 }
 dependencies {
-
     compile 'org.testng:testng:6.11'
     compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
     compile 'com.beust:jcommander:1.72'
@@ -13,18 +12,21 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.2.3'
     compile 'mysql:mysql-connector-java:8.0.7-dmr'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
-    compile 'org.hibernate:hibernate-core:5.1.0.Final'
+    compile 'org.hibernate:hibernate-core:5.2.10.Final'
 
 }
 
 task testGroups(type: Test) {
-    useTestNG{
-        suites 'src/test/resourses/testng-groups.xml'
+    useTestNG {
+        suites 'src/test/resources/testng-groups.xml'
     }
-    if (projects.hasProperty('browser')) {
+    if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
     }
-    if (projects.hasProperty('target')) {
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
+    }
+    if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
     if (project.hasProperty('verifyUI')) {
@@ -33,14 +35,16 @@ task testGroups(type: Test) {
 }
 
 task testContacts(type: Test) {
-
-    useTestNG{
-        suites 'src/test/resourses/testng-contacts.xml'
+    useTestNG {
+        suites 'src/test/resources/testng-contacts.xml'
     }
-    if (projects.hasProperty('browser')) {
+    if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
     }
-    if (projects.hasProperty('target')) {
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
+    }
+    if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
     if (project.hasProperty('verifyUI')) {
