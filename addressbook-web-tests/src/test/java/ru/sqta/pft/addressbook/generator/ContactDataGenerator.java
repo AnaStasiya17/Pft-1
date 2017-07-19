@@ -94,6 +94,7 @@ public class ContactDataGenerator {
                     .withTestLastName(String.format("lastname%s", i))
                     .withTestAddress(String.format("address%s", i))
                     .withTestEmail(String.format("email@mail.com", i))
+                    .withPhoto(String.format("src/test/resources/duck.jpg", i))
                     .withTestMobile(String.format("12345 %s", i)));
         }
         return contacts;

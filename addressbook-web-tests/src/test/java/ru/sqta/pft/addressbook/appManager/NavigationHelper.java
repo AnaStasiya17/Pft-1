@@ -25,11 +25,9 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void contactPage() {
-
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
-
         click(By.linkText("home"));
     }
 

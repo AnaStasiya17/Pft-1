@@ -53,7 +53,7 @@ public class GroupCreationTest extends TestBase {
         }
     }
 
-    @Test(dataProvider = "validGroupsFromJson")
+    @Test(dataProvider = "validGroupsFromXml")
     public void testGroupCreation(GroupData group) {
         app.goTo().groupsPage();
         Groups before = app.db().groups();

@@ -1,6 +1,5 @@
 package ru.sqta.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sqta.pft.addressbook.model.ContactData;
@@ -8,6 +7,7 @@ import ru.sqta.pft.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Анастасия Цыбулько on 30.06.2017.
@@ -27,15 +27,15 @@ public class ContactModificationTest extends TestBase {
     @Test
     public void testContactModification() {
         Contacts before = app.db().contacts();
+
         ContactData modifiedContact = before.iterator().next();
-        ContactData contact = new ContactData().withTestFirstName("testFirstName")
-                .withTestLastName("testLastName").withTestAddress("testAddress").withTestHome("testHome")
-                .withTestMobile("testMobile").withTestEmail("testEmail");
+
+        ContactData contact = new ContactData().
+                withId(modifiedContact.getId()).withTestFirstName("UpdFname").withTestLastName("UpdLname");
         app.contact().modify(contact);
-        Assert.assertEquals(app.contact().count(), before.size());
         Contacts after = app.db().contacts();
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
-        verifyContactListInUI();
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.without(modifiedContact).withAdded(app.db().contactById(modifiedContact.getId()))));
     }
 
 }

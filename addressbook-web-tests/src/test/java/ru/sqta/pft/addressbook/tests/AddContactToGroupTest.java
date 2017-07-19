@@ -17,7 +17,7 @@ public class AddContactToGroupTest extends TestBase {
     public void ensurePreconditions() {
         if (app.db().contacts().size() == 0) {
             app.goTo().addNewPage();
-            app.contact().create(new ContactData().withTestFirstName("Fname").withTestLastName("Lname"));
+            app.contact().create(new ContactData().withTestFirstName("Fname").withTestLastName("Lname").withPhoto("src/test/resources/duck.jpg"));
         }
 
         if (app.db().groups().size() == 0) {

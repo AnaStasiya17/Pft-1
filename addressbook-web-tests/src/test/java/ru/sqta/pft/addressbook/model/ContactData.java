@@ -25,10 +25,12 @@ public class ContactData {
     @Column(name = "lastname")
     private String testLastName;
 
-    @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String testAddress;
 
-    @Expose
+    @Column(name = "address2")
+    @Type(type = "text")
     private String testAddress2;
 
     @Expose
@@ -46,28 +48,61 @@ public class ContactData {
     @Type(type = "text")
     private String testWork;
 
-    @Expose
+    @Column(name = "email")
+    @Type(type = "text")
     private String testEmail;
+
+    @Column(name = "email2")
+    @Type(type = "text")
+    private String testEmail2;
 
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
-    private String testEmail2;
 
 
-    @ManyToMany
-    @JoinTable(name = "address_in_groups",
-            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Transient
     private String allPhones;
     @Transient
     private String allAddress;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (id != that.id) return false;
+        if (testFirstName != null ? !testFirstName.equals(that.testFirstName) : that.testFirstName != null)
+            return false;
+        return testLastName != null ? testLastName.equals(that.testLastName) : that.testLastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (testFirstName != null ? testFirstName.hashCode() : 0);
+        result = 31 * result + (testLastName != null ? testLastName.hashCode() : 0);
+        return result;
+    }
+
+    @Transient
     private String allEmails;
 
     public File getPhoto() {
         return new File(photo);
+    }
+
+    public boolean isPhotoInContact() {
+        if (photo != null) {
+            return true;
+        }
+        return false;
     }
 
     public ContactData withPhoto(String photo) {
@@ -134,27 +169,6 @@ public class ContactData {
     public ContactData withTestAddress(String testAddress) {
         this.testAddress = testAddress;
         return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (testFirstName != null ? !testFirstName.equals(that.testFirstName) : that.testFirstName != null)
-            return false;
-        return testLastName != null ? testLastName.equals(that.testLastName) : that.testLastName == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = testFirstName != null ? testFirstName.hashCode() : 0;
-        result = 31 * result + (testLastName != null ? testLastName.hashCode() : 0);
-        result = 31 * result + id;
-        return result;
     }
 
     public ContactData withTestHome(String testHome) {

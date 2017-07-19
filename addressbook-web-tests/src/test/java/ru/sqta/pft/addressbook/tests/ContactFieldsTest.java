@@ -15,7 +15,7 @@ public class ContactFieldsTest extends TestBase {
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 
-    @Test(invocationCount = 5)
+    @Test(enabled = false)
     public void testContactPhonees() {
         app.goTo().contactPage();
         ContactData contact = app.db().contacts().iterator().next();

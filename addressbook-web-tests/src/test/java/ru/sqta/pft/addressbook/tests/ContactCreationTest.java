@@ -25,7 +25,7 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsFromXml() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src\\test\\resources\\contacts.xml")))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))) {
             String xml = "";
             String line = reader.readLine();
             while (line != null) {
@@ -41,7 +41,7 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src\\test\\resources\\contacts.json")))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
             String json = "";
             String line = reader.readLine();
             while (line != null) {
@@ -55,10 +55,9 @@ public class ContactCreationTest extends TestBase {
         }
     }
 
-    @Test
+    @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
         Groups groups = app.db().groups();
-        File photo = new File("src/test/resources/duck.png");
         ContactData newContact = new ContactData().withTestFirstName("test_name").withTestLastName("test_surname")
                 .inGroup(groups.iterator().next());
         app.goTo().contactPage();
@@ -67,7 +66,7 @@ public class ContactCreationTest extends TestBase {
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(
-                before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+                before.withAdded(app.db().contactById(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
     @Test(enabled = false)

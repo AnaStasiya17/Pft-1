@@ -32,7 +32,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void submitContactModification() {
-        wd.findElement(By.xpath("//div[@id='content']/form[1]/input[22]")).click();
+        click(By.name("update"));
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
@@ -43,7 +43,11 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), contactData.getTestHome());
         type(By.name("work"), contactData.getTestWork());
         type(By.name("email"), contactData.getTestEmail());
-        attach(By.name("photo"), contactData.getPhoto());
+
+        if (contactData.isPhotoInContact()) {
+            attach(By.name("photo"), contactData.getPhoto());
+        }
+
         if (creation) {
             if (contactData.getGroups().size() > 0) {
                 org.testng.Assert.assertTrue(contactData.getGroups().size() == 1);
@@ -78,8 +82,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        selectContactById(contact.getId());
-        initContactModification();
+        initContactModificationById(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
         contactCache = null;
@@ -157,6 +160,7 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         initDeletingFromGrop();
     }
+
 
     private void initDeletingFromGrop() {
         wd.findElement(By.name("remove")).click();
